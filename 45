@@ -1,0 +1,83 @@
+public class Point {
+    private double x;
+    private double y;
+    public Point (double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+    public double getX() {
+        return x;
+    }
+    public double getY() {
+        return y;
+    }
+    public void turn(double phi) {
+// dreht das aufrufende Objekt um den Winkel phi
+        double xAlt = x;
+        x = xAlt * Math.cos(phi) - y * Math.sin(phi);
+        y = xAlt * Math.sin(phi) + y * Math.cos(phi);
+    }
+    public static double distance (Point p, Point q) {
+// liefert den Abstand zwischen p und q
+        double xdiff = p.getX() - q.getX();
+        double ydiff = p.getY() - q.getY();
+        return Math.sqrt(xdiff * xdiff + ydiff * ydiff);
+    }
+
+
+
+    public String toString() {
+// liefert die String-Darstellung des aufrufenden Objekts
+        return "(" + x + "," + y + ")";
+    }
+}
+//__________________________________________________________________________________________________________________________
+public class Triangle {
+    private Point p;
+    private Point q;
+    private Point r;
+
+    public Triangle(Point p, Point q, Point r) {
+        this.p = p;
+        this.q = q;
+        this.r = r;
+    }
+
+    public String toString() {
+        return p + "_" + q + "_" + r;
+    }
+
+    public double getUmfang() {
+        double umfang = Point.distance(p, q) + Point.distance(q, r) + Point.distance(r, p);
+        return umfang;
+    }
+
+    public void turn(double phi) {
+p.turn(phi);
+q.turn(phi);
+r.turn(phi);
+    }
+}
+
+//_________________________________________________________________________________________________________________________
+import java.util.Scanner;
+
+public class RunTriangle {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Point pointa = new Point(1,1);
+        Point pointb = new Point(3,3);
+        Point pointc = new Point(5,1);
+
+        Triangle triangle1 = new Triangle(pointa, pointb, pointc);
+
+        System.out.println("Umfang: " + triangle1.getUmfang());
+
+        System.out.println("Bitte Drehwinkel eingeben: ");
+        int drehwinkelInput = scanner.nextInt();
+
+        triangle1.turn(drehwinkelInput);
+        System.out.println("Gedrehtes Dreieck Umfang: "+     triangle1.getUmfang());
+    }
+}
+
