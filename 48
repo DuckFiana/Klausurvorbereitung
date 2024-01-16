@@ -1,0 +1,66 @@
+public class Glasboden {
+    private double radius;
+    public Glasboden (double r) {
+        radius = r;
+    }
+    public void verkleinern (double x) {
+// verkleinert den Radius des Glasboden-Objekts um x
+        radius = radius - x;
+    }
+    public double flaeche () {
+// liefert die Flaeche des Glasboden-Objekts
+        return Math.PI * radius * radius;
+    }
+    public double umfang () {
+// liefert den Umfang der Glasboden-Objekts
+        return 2 * Math.PI * radius;
+    }
+    public String toString() {
+// liefert die String-Darstellung des aufrufenden Glasboden-Objekts
+        return "B(r=" + radius + ")";
+    }
+}
+//______________________________________________________________________________________
+public class TrinkGlas {
+    private Glasboden boden;
+    private double fuellStand;
+
+    public TrinkGlas(double fuellStand, Glasboden boden) {
+        this.boden = boden;
+        this.fuellStand = fuellStand;
+    }
+
+    public void verkleinern(double x) {
+        boden.verkleinern(x);
+        fuellStand = fuellStand - x;
+    }
+
+    public double flaeche() {
+        return boden.flaeche() + boden.umfang() * fuellStand;
+    }
+
+    public double fuellMenge() {
+        return boden.flaeche() * fuellStand;
+    }
+
+    public String toString() {
+        return "G(" + boden + ",s=" + fuellStand + ")";
+    }
+}
+//_________________________________________________________________________________________
+public class TesteTrinkGlas {
+    public static void main(String[] args) {
+        Glasboden b = new Glasboden(100);
+        TrinkGlas t = new TrinkGlas(50,b);
+
+
+            for(int i = 0; t.flaeche() < (t.fuellMenge()/8); i++) {
+                t.verkleinern(5);
+
+                System.out.println("Aktuelles Trinkglas: " + t);
+                System.out.println("Aktuelle Fläche: " + t.flaeche());
+                System.out.println("Aktuelle Füllmenge: " + t.fuellMenge());
+        }
+    }
+}
+
