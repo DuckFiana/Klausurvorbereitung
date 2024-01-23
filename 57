@@ -1,0 +1,66 @@
+public class Autoreifen {
+    private double radius, dicke;
+
+    public Autoreifen(double r, double d) {
+        radius = r;
+        dicke = d;
+    }
+
+    public void verstaerke(int stufe) {
+// verstaerkt den Reifen um ’stufe’ Stufen
+        radius = radius * Math.pow(1.05, stufe);
+        dicke = dicke + stufe * 0.125;
+    }
+
+    public double gewicht() {
+// liefert das Gewicht des Reifens
+        return 2 * Math.PI * radius * dicke * dicke * 0.000287;
+    }
+}
+_______________________________________________________________________
+
+public class LastFahrzeug {
+    private Autoreifen reifen; // Reifenart des Lastfahrzeuges
+    private int anzahlReifen; // Anzahl der Reifen des Lastfahrzeuges
+    private final double karosserieGewicht = 5890.76; // Karosserie-Gewicht
+
+    public int getAnzahlReifen() {
+        return anzahlReifen;
+    }
+
+    public LastFahrzeug(Autoreifen reifen, int anzahlReifen) {
+        this.reifen = reifen;
+        this.anzahlReifen = anzahlReifen;
+    }
+
+    public void vermindereReifenAnzahl(int n) {
+        anzahlReifen = anzahlReifen - n;
+        if ((anzahlReifen / 2) == 0) {
+            anzahlReifen = anzahlReifen + 0;
+        } else {
+            anzahlReifen = anzahlReifen - 1;
+        }
+        if (anzahlReifen < 4) {
+            anzahlReifen = anzahlReifen + 1
+        } if (anzahlReifen > 4) anzahlReifen = anzahlReifen - 1;
+    reifen.verstaerke(n/2);
+    }
+
+    public double gewicht() {
+        return  karosserieGewicht + anzahlReifen * reifen.gewicht();
+    }
+}
+______________________________________________________________________________________________
+public class TesteLastFahrzeug {
+    public static void main(String[] args) {
+        Autoreifen testReifen = new Autoreifen(35,15);
+        LastFahrzeug testLasti = new LastFahrzeug(testReifen, 30);
+
+        while(testLasti.gewicht() > 6000 && testLasti.getAnzahlReifen() > 4) {
+        testLasti.vermindereReifenAnzahl(4); }
+        System.out.println("Aktuelles Gewicht: " + testLasti.gewicht());
+
+        }
+    }
+}
+
