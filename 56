@@ -1,0 +1,53 @@
+public class Sound { // Musikanlage fuer einen Partyraum
+    private String raum; // Raum, in dem die Anlage steht
+    private int lautstaerke; // Einstellung fuer die Lautstaerke
+
+    // Konstruktor:
+    public Sound(String ra, int la) {
+        lautstaerke = la;
+        raum = ra;
+    }
+
+    // Methode, die den Wert der Variable lautstaerke liefert:
+    public int getLautstaerke() {
+        return lautstaerke;
+    }
+
+    // Methode zur ¨Anderung der Lautst¨arke:
+    public void aendereLautstaerkeUm(int wert) {
+        lautstaerke = lautstaerke + wert;
+    }
+
+    // Methode, die die String-Darstellung des Sound-Objekts liefert:
+    public String toString() {
+        return "Anlage im Raum " + raum + ": Lautst.: " + lautstaerke;
+    }
+}
+//_______________________________________________________________________________
+public class SoundAndLight extends Sound {
+    private int licht;
+
+    public SoundAndLight(String raum, int laut, int licht) {
+        super(raum, laut);
+        this.licht = licht;
+    }
+
+    public void aendere(String regler, int wert) {
+        if (regler.equals("licht")) {
+            licht += wert;
+        }
+        if (regler.equals("laut")) {
+            aendereLautstaerkeUm(wert);
+        }
+    }
+
+    public boolean istLauterAls(SoundAndLight andereAnlage) {
+        if (getLautstaerke() > andereAnlage.getLautstaerke()) {
+        }
+        return true;
+    }
+
+    public String toString() {
+        return super.toString() + " Licht: " + licht;
+    }
+}
