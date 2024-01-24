@@ -1,0 +1,63 @@
+package Prog1Tools;
+
+public class Buch {
+    public String titel;
+    public int seiten;
+    public boolean gelesen;
+}
+______________________________________________________________________________________
+public class Lesen {
+    public static void main(String [] args) {
+        int count=IOTools.readInteger("Wieviele B¨ucher willst Du eingeben? ");
+        Buch[] bf = new Buch[count]; // Buch-Feld erzeugen
+        BuchUtil.read (bf); // Buch-Feld einlesen
+        BuchUtil.sort (bf); // Buch-Feld sortieren
+        BuchUtil.printUnread (bf); // Bildschirmausgabe
+    }
+}
+________________________________________________________________________________________
+
+package Prog1Tools;
+
+public class BuchUtil {
+    public static void read(Buch[] b) {
+        for (int i = 0; i < b.length; i++) {
+            System.out.println((i + 1) + ".Buch: ");
+            b[i] = new Buch();
+            b[i].titel = "Titel: ";
+            b[i].seiten = Integer.parseInt("Seiten: ");
+            b[i].gelesen = Boolean.parseBoolean("Gelesen: ");
+        }
+    }
+
+    public static void sort(Buch[] b) {
+        for (int i = 0; i < b.length - 1; i++) {
+            int biggestSeiten = i;
+            for (int j = i + 1; j < b.length; j++) {
+                if (b[j].seiten > b[biggestSeiten].seiten) {
+                    biggestSeiten = j;
+                }
+                if (biggestSeiten != i) {
+                    Buch help = b[biggestSeiten];
+                    b[biggestSeiten] = b[i];
+                    b[i] = help;
+                }
+            }
+
+        }
+    }
+
+    public static void printUnread(Buch[] b) {
+        System.out.println("Noch nicht gelesene B¨ucher, nach Seiten sortiert:");
+        int gesamt = 0;
+        for (int i = 0; i < b.length; i++) {
+            if (b[i].gelesen == false) {
+                gesamt += b[i].seiten;
+            }
+        }
+
+        System.out.println("Insgesamt noch zu lesen: " + gesamt + " Seiten");
+    }
+}
+
+
