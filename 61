@@ -1,0 +1,66 @@
+package Prog1Tools;
+
+public class GSDreieck {
+    private int seite; // Seitenl¨ange in cm
+    public GSDreieck (int s) { // Konstruktor
+        seite = s;
+    }
+    public void verkleinern (int x) { // verkleinert die Seitenl¨ange um x
+        seite = seite - x;
+    }
+    public double flaeche () { // liefert die Fl¨ache des Dreiecks
+        return Math.sqrt(3)*seite*seite/4;
+    }
+    public double umfang () { // liefert den Umfang des Dreiecks
+        return 3 * seite;
+    }
+    public String toString() { // liefert die String-Darstellung des Objekts
+        return "GSD(s=" + seite + ")";
+    }
+}
+
+//__________________________________________________________________________________________
+package Prog1Tools;
+
+public class Tetraeder {
+    private GSDreieck seitenDr; // Gestalt der Außenfl¨achen (Seitendreiecke)
+    private double dichte; // Dichte des Baumaterials
+
+    public Tetraeder(double d, GSDreieck sDr) { // Konstruktor
+        dichte = d;
+        seitenDr = sDr;
+    }
+
+    public void change(double x) { // ver¨andert Gestalt und Dichte
+        int verkleinerung = (int) Math.sqrt(x);
+        seitenDr.verkleinern(verkleinerung);
+        dichte = dichte - (0.9 * x);
+    }
+
+    public double gewicht() { // liefert das Gewicht des Tetraeders
+        double Gewicht;
+        Gewicht = dichte * seitenDr.flaeche() * seitenDr.umfang() * (Math.sqrt(6) / 27);
+        return Gewicht;
+    }
+
+    public String toString() { // liefert die String-Darstellung des Objekts
+        return "TE[" + seitenDr  + ",d=" + dichte + "]";
+    }
+}
+//_____________________________________________________________________________________________________________
+package Prog1Tools;
+
+public class TetraTest {
+    public static void main(String[] args) {
+        GSDreieck g = new GSDreieck(100);
+        Tetraeder t = new Tetraeder(50.0,g);
+
+        for(int i =0; i < t.gewicht(); i++) {
+            if(t.gewicht() > 300000) {
+                t.change(5);
+                System.out.println(t);
+            }
+        }
+    }
+}
+
