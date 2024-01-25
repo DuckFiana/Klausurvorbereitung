@@ -1,0 +1,27 @@
+package Prog1Tools;
+
+public class Ware {
+    public String bezeichnung; // Bezeichnung der Ware
+    public int anzahl; // St¨uckzahl der Ware
+    public double gewicht; // Einzelgewicht der Ware
+}
+//__________________________________________________________________________________________
+package Prog1Tools;
+
+public class allesOK {
+    public boolean allesOKi(Ware[] ware, double maxGewicht, double maxStuckzahl) {
+        double sumGewicht = 0;
+        double sumStuckanzahl = 0;
+        for (int i = 0; i < ware.length; i++) {
+            if (ware[i] != null) {
+                sumGewicht += ware[i].gewicht * ware[i].anzahl;
+                sumStuckanzahl += ware[i].anzahl;
+            }
+            if (sumGewicht > maxGewicht && sumStuckanzahl > maxStuckzahl) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
