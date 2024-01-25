@@ -1,0 +1,61 @@
+package Prog1Tools;
+
+public class Objektiv { // Standard-Objektiv fuer eine Kamera
+    private String marke; // Herstellername
+    private double blende; // Einstellung fuer die Blende
+
+    // Konstruktor:
+    public Objektiv(String ma, float bl) {
+        marke = ma;
+        blende = bl;
+    }
+
+    // Methode, die den Wert der Variable blende liefert:
+    public double getBlende() {
+        return blende;
+    }
+
+    // Methode, die den Wert der Variable marke liefert:
+    public String getMarke() {
+        return marke;
+    }
+
+    // Methode, die den Wert der Variable blende setzt:
+    public void setBlende(double wert) {
+        blende = wert;
+    }
+
+    // Methode, die die String-Darstellung des Objektiv-Objekts liefert:
+    public String toString() {
+        return "Objektiv der Marke " + marke + " mit Blende " + blende;
+    }
+}
+//__________________________________________________________________________________________________________________
+public class ZoomObjektiv extends Objektiv {
+    private int brennweite;
+
+    public ZoomObjektiv(String marke, float blende, int brennweite) {
+        super(marke, blende);
+        this.brennweite = brennweite;
+    }
+
+    public void zoom(int differenz) {
+        if (getMarke().equals("Minolta")) {
+            brennweite += differenz;
+            double ergebnis = getBlende() / Math.pow(2, differenz / 100);
+            setBlende(ergebnis);
+        } else {
+            brennweite += differenz;
+        }
+    }
+
+    public boolean istSchaerferAls(ZoomObjektiv anderesObjektiv) {
+        if (getBlende() > anderesObjektiv.getBlende()) {
+        }
+        return true;
+    }
+
+    public String toString() {
+        return super.toString() + "Brennweite: " + brennweite;
+    }
+}
