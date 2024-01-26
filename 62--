@@ -1,0 +1,39 @@
+package Prog1Tools;
+import Prog1Tools.IOTools;
+
+public class ChartsMethoden {
+    public static int findPos(CD c, CD[] charts) {
+        int position = charts.length;
+        for(int i =0; i < charts.length; i++) {
+            if( charts[i] != null || c.verkauf > charts[i].verkauf) { //wenn charts nicht null sind oder wenn verkaufszahlen größer sind als aktueller chartsplatz
+                position = i;
+                break;
+            }
+        }
+        return position;
+    }
+
+    public static void enter(int pos, CD c, CD[] charts) {
+        for(int i = charts.length-2; i>=pos; i--) {
+            charts[i+1] = charts[i];
+            charts[pos] = c;
+        }
+    }
+
+
+
+    public static void enter(CD c, CD[] charts) {
+        int pos = findPos(c, charts); // finde Einfuege-Postion
+        if (pos < charts.length) // falls notwendig
+            enter(pos, c, charts); // fuege die CD dort ein
+    }
+
+    public static void print(CD[] charts) {
+        for (int i = 0; i < charts.length; i++) {
+            if (charts[i] == null)
+                break;
+            System.out.println(charts[i].interpret + " - ’" + charts[i].titel +
+                    "’ (" + charts[i].verkauf + " verkaufte CD’s)");
+        }
+    }
+}
