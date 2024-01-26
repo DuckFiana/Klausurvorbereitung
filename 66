@@ -1,0 +1,21 @@
+package Prog1Tools;
+
+public class Ware {
+    public byte[] bestellCode; // Bestell-Code der Ware
+    public int anzahl; // St¨uckzahl der Ware
+    public double gewicht; // Einzelgewicht der Ware
+}
+
+public class HierSchreibeIchMeineMethodeRein {
+    public boolean allesPaletti(Ware[] feld, double maxGewicht) {
+        double sumGewicht = 0;
+        for (int i = 0; i < feld.length; i++) {
+            if (feld[i] != null)
+                sumGewicht = sumGewicht + feld[i].gewicht * feld[i].anzahl;
+            for (int j = 0; j < feld[i].bestellCode.length; j++) {
+                if (feld[i].bestellCode[j] <= 0) ;
+            }
+        }
+        return sumGewicht <= maxGewicht;
+    }
+}
