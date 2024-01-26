@@ -1,0 +1,65 @@
+package Prog1Tools;
+
+public class Book {
+    public String autor; // Name des Autors
+    public String titel; // Titel des Buchs
+    public int verkauf; // Verkaufszahlen des Buchs
+}
+
+
+public class Bestseller {
+    public static void main(String[] args) {
+        int n = IOTools.readInteger("Laenge der Bestseller-Liste: n = ");
+        Book[] list = new Book[n];
+        char jn;
+        System.out.println("B¨ucher mit Verkaufszahlen eingeben:");
+        do {
+            Book b = new Book();
+            b.autor = IOTools.readLine("Autor: ");
+            b.titel = IOTools.readLine("Buch-Titel: ");
+            b.verkauf = IOTools.readInteger("Insgesamt verkaufte B¨ucher: ");
+            Methoden.enter(b, list);
+            jn = IOTools.readChar("Noch ein Buch? (j/n): ");
+        } while (jn == 'j');
+        System.out.println("Die B¨ucher-Top-" + n + ":");
+        Methoden.print(list);
+    }
+}
+
+//___________________________________________________________________________________________
+public class Methoden {
+    public static int findPos(Book b, Book[] list) {
+        int position = list.length;
+
+        for (int i = 0; i < list.length; i++) {
+            if (list[i] == null || b.verkauf > list[i].verkauf) {
+                position = i;
+                break;
+            }
+        }
+        return position;
+    }
+
+    public static void enter(int pos, Book b, Book[] list) {
+
+        for (int i = list.length - 2; i >= pos; i--) {
+            list[i + 1] = list[i];
+            list[pos] = b;
+        }
+    }
+
+    public static void enter(Book b, Book[] list) {
+        int pos = findPos(b, list); // finde Einfuege-Postion
+        if (pos < list.length) // falls notwendig
+            enter(pos, b, list); // fuege das Buch dort ein
+    }
+
+    public static void print(Book[] list) {
+        for (int i = 0; i < list.length; i++) {
+            if (list[i] == null)
+                break;
+            System.out.println(list[i].autor + " - ’" + list[i].titel +
+                    "’ (" + list[i].verkauf + " verkaufte B¨ucher)");
+        }
+    }
+}
