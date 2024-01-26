@@ -1,0 +1,57 @@
+package Prog1Tools;
+
+public class Dusche {
+    private String raum; // Raum, in dem die Dusche steht
+    private int hoehe; // Eingestellte H¨ohe des Duschkopfs
+    private int druck; // Eingestellter Wasserdruck (St¨arke des Strahls)
+
+    public Dusche(String ra, int ho, int dr) { // Konstruktor
+        raum = ra;
+        hoehe = Math.max(120, Math.min(ho, 250)); // hoehe im Bereich [120,250]
+        druck = Math.max(100, Math.min(dr, 1000)); // druck im Bereich [100,1000]
+    }
+
+    public int getDruck() { // liefert den Wert der Variable druck
+        return druck;
+    }
+
+    public void change(String einstell, int wert) {// ver¨andert die zu ’einstell’
+        if (einstell.equals("Hoehe")) // gehoerende Einstellung
+            hoehe = hoehe + wert; // um ’wert’
+        else if (einstell.equals("Druck"))
+            druck = druck + wert;
+    }
+
+    public String toString() { // liefert String-Darstellung des Dusche-Objekts
+        return "Dusche im Raum " + raum +
+                ": h=" + hoehe +
+                ", d=" + druck;
+    }
+}
+
+
+public class LuxusDusche extends Dusche {
+    private double temp; // Temperatur der Dusche
+
+    public LuxusDusche(String ra, int ho, int dr, double temp) {
+        super(ra, ho, dr);
+        this.temp = Math.max(10, Math.min(temp, 55));
+    }
+
+    public void change(String regler, int wert) {
+        if (regler.equals("temp")) {
+            temp += wert;
+        } else {
+            super.change(regler, wert);
+        }
+    }
+
+    public boolean istAngenehmerAls(LuxusDusche andereAnlage) {
+        if (this.getDruck() < andereAnlage.getDruck() && temp < 40 && this.temp > andereAnlage.temp) ;
+        return true;
+    }
+
+    public String toString() {
+        return super.toString() + ", t= " + temp;
+    }
+}
