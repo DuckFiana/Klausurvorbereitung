@@ -1,0 +1,61 @@
+public class SWBildschirm {
+    private int hell; // Helligkeit des Bildes
+    private int kont; // Kontrast des Bildes
+
+    public SWBildschirm(int hell, int kont) { // Konstruktor
+        aendere("hell", hell);
+        aendere("kont", kont);
+    }
+
+    public void aendere(String schalter, int d) { // ver¨andert die zu ’schalter’
+        if (schalter.equals("hell")) // geh¨orende Einstellung um ’d’
+            hell = Math.max(0, Math.min(10, hell + d));
+        else if (schalter.equals("kont"))
+            kont = Math.max(0, Math.min(10, kont + d));
+    }
+
+    public int getKontrast() { // lesenden Zugriff auf Kontrast
+        return kont;
+    }
+
+    public int getHelligkeit() { // lesenden Zugriff auf Helligkeit
+        return hell;
+    }
+
+    public String toString() { // Stringdarstellung des SW-Bildschirms
+        return "Bildschirm mit Helligkeit " + hell + ", Kontrast " + kont;
+    }
+}
+
+//________________________________________________________________________________________________________
+public class FarbBildschirm extends SWBildschirm {
+    private int farbe;
+
+    public FarbBildschirm(int hell, int kont, int f) {
+        super(hell, kont);
+        this.farbe = f;
+        f = Math.max(10, Math.min(f, 0));
+    }
+
+    public void aendere(String schalter, int d) {
+        if (schalter.equals("Farbe")) {
+            farbe += d;
+            farbe = Math.max(0, Math.min(farbe, 10));
+        } else {
+            super.aendere(schalter, d);
+        }
+
+        public String toString () {
+            return super.toString() + "und Farbe " + farbe;
+        }
+
+        public int bildschaerfe ( int kontrast, int helligkeit, int farbe)
+
+        public boolean wirktSchaerferAls (FarbBildschirm f){
+            StiftungWarenTest x = new StiftungWarenTest();
+            return x.bildschaerfe(getKontrast(), getHelligkeit(), this.farbe) >
+                    x.bildschaerfe(f.getKontrast(), f.getHelligkeit(), f.farbe);
+
+        }
+    }
+}
