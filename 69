@@ -1,0 +1,52 @@
+public class Aquarium {
+    private String bez; // Bezeichnung des Aquariums
+    private double hoehe; // H¨ohe des w¨urfelf¨ormigen Aquariums (in cm)
+    private double wasserstand; // F¨ullstand des Wassers (in cm)
+
+    public Aquarium(String b, double h, double w) { // Konstruktor
+        bez = b;
+        hoehe = Math.max(0, Math.min(h, 50)); // H¨ohe im Bereich [0,50]
+        wasserstand = Math.max(0, Math.min(w, h)); // F¨ullstand im Bereich [0,h]
+    }
+
+    public double getWasserstand() { // liefert den aktuellen Wasserstand
+        return wasserstand;
+    }
+
+    public void wasserAuffuellen(double diff) { // Wasserstand um ’diff’ erh¨ohen
+        wasserstand = Math.max(0, Math.min(wasserstand + diff, hoehe));
+    }
+
+    public String toString() { // liefert String-Darstellung des Aquariums
+        return bez + "-Aquarium: h=" + hoehe + ", w=" + wasserstand;
+    }
+}
+//________________________________________________________________________________________________________
+
+public class BeheiztesAquarium extends Aquarium {
+    private double temp; // Temperatur-Regler
+
+    public BeheiztesAquarium(String b, double h, double w, double temp) {
+        super(b, h, w);
+        this.temp = temp;
+        temp = Math.max(10.5, Math.min(temp, 40.8));
+    }
+
+    public void erhoehe(String einstellung, double wert) {
+        if (einstellung.equals("Temperatur")) {
+            temp += wert;
+            temp = Math.max(10.5, Math.min(temp, 40.8));
+        } else {
+            super.wasserAuffuellen(wert);
+        }
+    }
+
+    public boolean geeigneterAls(BeheiztesAquarium x) {
+        if (getWasserstand() > x.getWasserstand() && Math.abs(temp - x.temp) <= 1.5) ;
+        return true;
+    }
+
+    public String toString() {
+        return super.toString() + ", t=" + temp;
+    }
+}
