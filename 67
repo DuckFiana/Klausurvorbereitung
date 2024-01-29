@@ -1,0 +1,55 @@
+public class Radio {
+    private String raum; // Raum, in dem das Radio steht
+    private int laut; // Eingestellte Lautstaerke
+    private int prog; // Eingestelltes Programm
+
+    public Radio(String ra, int la, int pr) { // Konstruktor
+        raum = ra;
+        laut = Math.max(0, Math.min(la, 50)); // Laustaerke im Bereich [0,50]
+        prog = Math.max(1, Math.min(pr, 99)); // Programm im Bereich [1,99]
+    }
+
+    public int getLautstaerke() { // liefert den Wert der Variable laut
+        return laut;
+    }
+
+    public void aendere(String knopf, int wert) { // ver¨andert die zu ’knopf’
+        if (knopf.equals("laut")) { // geh¨orende Einstellung
+            laut = Math.max(0, Math.min(laut + wert, 50)); // um ’wert’
+        } else if (knopf.equals("prog")) {
+            prog = Math.max(1, Math.min(prog + wert, 99));
+        }
+    }
+
+    public String toString() { // liefert String-Darstellung des Radios
+        return "Radio im " + raum + ": l=" + laut + ", p=" + prog;
+    }
+}
+//_____________________________________________________________________________________
+public class StereoRadio extends Radio {
+    private int bala; // Balance-Regler
+
+    public StereoRadio(String ra, int la, int pr, int bala) {
+        super(ra, la, pr);
+        this.bala = bala;
+        bala = Math.max(-9, Math.min(bala, 9));
+    }
+
+    public void aendere(String regler, int wert) {
+        if (regler.equals("Balance")) {
+            bala += wert;
+            bala = Math.max(-9, Math.min(bala, 9));
+        } else {
+            super.aendere(regler, wert);
+        }
+    }
+
+    public boolean klingtBesserAls(StereoRadio anderer) {
+        if (getLautstaerke() < anderer.getLautstaerke() && Math.abs(bala) < Math.abs(anderer.bala)) ;
+        return true;
+    }
+
+    public String toString() {
+        return super.toString() + ", b= " + bala;
+    }
+}
